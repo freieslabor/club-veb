@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Booking(models.Model):
-    date = models.DateTimeField(verbose_name='Date')
+    date = models.DateTimeField(verbose_name='Termin')
     name = models.CharField(max_length=200, verbose_name='Name')
     headline = models.CharField(max_length=200, verbose_name='Überschrift')
     description = models.CharField(max_length=1000, verbose_name='Pressetext')

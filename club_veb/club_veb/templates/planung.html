@@ -1,0 +1,14 @@
+{% extends "base.html" %} 
+
+{% block content %}
+  <div id="inhalt-inner">
+    <h3>Event Editor</h3>
+    <form enctype="multipart/form-data" method="post" action="/foo/">
+      {% csrf_token %}
+      <table class="table">
+        {{booking.as_table}}
+      </table>
+	  <input type="submit" value="Speichern" class="btn btn-default" />
+    </form>
+  </div>
+{% endblock %}

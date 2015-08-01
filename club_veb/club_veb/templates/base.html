@@ -1,0 +1,63 @@
+{% load static %}
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Club VEB</title>
+    <link rel="shortcut icon" href="{% static "img/veb.ico" %}" type="image/x-icon">
+    <meta lang="de" name="Title" content="Club VEB">
+    <meta name="google-site-verification" content="5xgJ6CxSal2y4errjBJC9_lvHq_0_KXrJTBzOeOHLPo">
+    <meta lang="de" name="Copyright" content="Club VEB">
+    <meta lang="de" name="Description" content="Der Club VEB ist ein SozioKulturelles ehrenamtliches Projekt in Hildesheim. Freier Eintritt - Live Auftritte und vieles mehr.">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="imagetoolbar" content="yes">
+    <meta http-equiv="content-type" content="image/jpg">
+    <meta name="language" content="de">
+    <meta name="revisit" content="2 Days">
+    <link rel="stylesheet" type="text/css" href="{% static "css/veb.css" %}" media="all">
+	<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+	{{ form.media }}
+  </head>
+  <body>
+    <div id="MAIN">
+      <div id="BL"></div>
+      <div id="BANNER"></div>
+      <div id="BR"></div>
+      <div id="MENP">
+        <div id="MENP2">
+          <a class="AMEN1" href="/">ZENTRALE</a>
+        </div>
+      </div>
+      <div id="MENP"><div id="MENP2">
+        <a class="AMEN1" href="/programm">PROGRAMM</a></div>
+      </div>
+      <div id="MENP">
+        <div id="MENP2">
+          <a class="AMEN1" href="/kontakt">KONTAKT</a>
+        </div>
+      </div>
+      <div id="MENP">
+        <div id="MENP2">
+          <a class="AMEN1" href="/galerie">GALERIE</a>
+        </div>
+        <br>
+      </div>
+      <div id="WERB">
+        <a href="http://kufa.info/" target="_blank">
+          <img src="{% static "img/kufa.png" %}" border="0" width="175">
+        </a>
+      </div>
+      <div id="INHALT">
+        {% block content %}{% endblock %}
+      </div>
+      <div id="BM"></div>
+      <div id="IMP">
+        <a class="IMP2" href="/impressum">Impressum</a>
+        | <a class="IMP2" href="/kontakt">Kontakt</a>
+        | <a class="IMP2" href="/planung">Planungsbüro</a>
+      </div>
+    </div>
+	<script src="{% static "js/jquery.min.js" %}"></script>
+	<script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  </body>
+</html>

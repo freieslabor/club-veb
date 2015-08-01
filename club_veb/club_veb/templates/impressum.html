@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+  <div id="inhalt-inner">
+    <div id="NEWSTHEM">
+      <img src="{% static "img/veb_logo_kl.gif" %}" height=50>
+      <span class="spaced-headline">Impressum</span>
+      <img src="{% static "img/veb_logo_kl.gif" %}" height=50>
+    </div>
+    <div class="imprint">
+      Club VEB<br>
+      C/O Kulturfabrik Löseke<br>
+
+      Langer Garten 1<br>
+      31137 Hildesheim<br>
+      <br>
+      E-Mail: webmaster(at)club-veb.com
+      <br><br>
+      Inhaltlich verantwortlich gemäß § 55 Abs. 2 RStV:
+      <br><br>
+      Club VEB  • Langer Garten 1   • 31137 Hildesheim
+      <br>
+      Haftungshinweis:
+      <br>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+    </div>
+  </div>
+{% endblock %}

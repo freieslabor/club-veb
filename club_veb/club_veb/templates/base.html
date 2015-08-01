@@ -28,16 +28,16 @@
         </div>
       </div>
       <div id="MENP"><div id="MENP2">
-        <a class="AMEN1" href="/programm">PROGRAMM</a></div>
+        <a class="AMEN1" href="{% url 'programm' %}">PROGRAMM</a></div>
       </div>
       <div id="MENP">
         <div id="MENP2">
-          <a class="AMEN1" href="/kontakt">KONTAKT</a>
+          <a class="AMEN1" href="{% url 'kontakt' %}">KONTAKT</a>
         </div>
       </div>
       <div id="MENP">
         <div id="MENP2">
-          <a class="AMEN1" href="/galerie">GALERIE</a>
+          <a class="AMEN1" href="{% url 'galerie' %}">GALERIE</a>
         </div>
         <br>
       </div>
@@ -51,9 +51,9 @@
       </div>
       <div id="BM"></div>
       <div id="IMP">
-        <a class="IMP2" href="/impressum">Impressum</a>
-        | <a class="IMP2" href="/kontakt">Kontakt</a>
-        | <a class="IMP2" href="/planung">Planungsbüro</a>
+        <a class="IMP2" href="{% url 'impressum' %}">Impressum</a>
+        | <a class="IMP2" href="{% url 'kontakt' %}">Kontakt</a>
+        | <a class="IMP2" href="{% url 'planung' %}">Planungsbüro</a>
       </div>
     </div>
 	<script src="{% static "js/jquery.min.js" %}"></script>

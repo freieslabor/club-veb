@@ -74,6 +74,7 @@ a:hover {
 }
 
 .link1:link,link1:visited,link1:active {
+  margin-left: 10px;
   color:#1B354B; 
   font-size: 14px;
   font-weight: bold;
@@ -83,6 +84,7 @@ a:hover {
   color:red;
   font-size: 14px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 #daform {
@@ -124,7 +126,9 @@ a:hover {
   font-size: small;
   padding-left: 0px;
   vertical-align: middle;
+  width: 100%;
   float: left;
+  margin-bottom: 20px;
 }
 
 #MENP {

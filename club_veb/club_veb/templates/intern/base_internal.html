@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block submenu %}
+  <div id="MENUE2">
+      <a class="link1" href="{% url 'intern_uebersicht' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      ÜBERSICHT
+    </a>
+	<a class="link1" href="{% url 'intern_booking' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      BOOKING
+    </a>
+	<a class="link1" href="{% url 'intern_schichtplan' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      SCHICHTPLAN
+    </a>
+	<a class="link1" href="{% url 'intern_todo' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      TO-DO-LIST
+    </a>
+	<a class="link1" href="{% url 'intern_clubtreffen' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      CLUBTREFFEN
+    </a>
+	<a class="link1" href="{% url 'intern_benutzer' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      BENUTZER
+    </a>
+	<a class="link1" href="{% url 'intern_mail' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      MAIL
+    </a>
+	<a class="link1" href="{% url 'intern_kollektiv' %}">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      KOLLEKTIV
+    </a>
+  </div>
+{% endblock %}

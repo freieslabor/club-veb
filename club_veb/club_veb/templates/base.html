@@ -43,6 +43,7 @@
         </div>
         <br>
       </div>
+      {% block submenu %}{% endblock %}
       <div id="WERB">
         <a href="http://kufa.info/" target="_blank">
           <img src="{% static "img/kufa.png" %}" border="0" width="175">
@@ -55,7 +56,7 @@
       <div id="IMP">
         <a class="IMP2" href="{% url 'impressum' %}">Impressum</a>
         | <a class="IMP2" href="{% url 'kontakt' %}">Kontakt</a>
-        | <a class="IMP2" href="{% url 'planung' %}">Planungsbüro</a>
+        | <a class="IMP2" href="{% url 'intern_uebersicht' %}">Planungsbüro</a>
       </div>
     </div>
   </body>

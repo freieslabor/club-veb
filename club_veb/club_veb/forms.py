@@ -25,7 +25,7 @@ class BookingForm(ModelForm):
         model = Booking
         exclude = []
         widgets = {
-            'date': DateWidget(attrs={'id': 'yourdatetimeid'}, usel10n=True,
+            'date': DateWidget(attrs={'id': 'datetime'}, usel10n=True,
                                bootstrap_version=3),
             'headline': Textarea(attrs={'rows': 3}),
             'description': Textarea(attrs={'rows': 15}),

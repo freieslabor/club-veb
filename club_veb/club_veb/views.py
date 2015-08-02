@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
 from club_veb.forms import BookingForm
 
 
@@ -25,6 +28,11 @@ def impressum(request):
 def planung(request):
     if request.method == "POST":
         booking = BookingForm(request.POST, request.FILES)
+        if booking.is_valid():
+            booking.save()
+            return HttpResponseRedirect(
+                reverse("club_veb.views.zentrale")
+            )
     else:
         booking = BookingForm()
 

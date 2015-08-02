@@ -7,7 +7,7 @@
 {% block content %}
   <div id="inhalt-inner">
     <h3>Event Editor</h3>
-    <form enctype="multipart/form-data" method="post" action="/foo/">
+	<form enctype="multipart/form-data" method="post" action="{% url 'planung' %}">
       {% csrf_token %}
       <table class="table">
         {{booking.as_table}}

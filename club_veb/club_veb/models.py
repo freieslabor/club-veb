@@ -9,7 +9,7 @@ class Booking(models.Model):
     description = models.CharField(max_length=1000, verbose_name='Pressetext')
     type = models.CharField(max_length=50, verbose_name='Art')
     link = models.CharField(max_length=70, verbose_name='Link')
-    image = models.ImageField(verbose_name='Bild')
+    image = models.ImageField(verbose_name='Bild', upload_to='event_image')
     responsible = models.ForeignKey(User, verbose_name='Verantwortlich')
     state = models.IntegerField(verbose_name='Status', choices=(
         (1, 'geblockt'),

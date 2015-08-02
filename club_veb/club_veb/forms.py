@@ -14,7 +14,8 @@ class UserFullnameChoiceField(ModelChoiceField):
 
 
 class BookingForm(ModelForm):
-    responsible = UserFullnameChoiceField(queryset=User.objects.all())
+    responsible = UserFullnameChoiceField(queryset=User.objects.all(),
+                                          label='Verantwortlich')
 
     def __init__(self, *args, **kwargs):
         super(BookingForm, self).__init__(*args, **kwargs)

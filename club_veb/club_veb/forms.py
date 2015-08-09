@@ -1,4 +1,5 @@
-from django.forms import ModelForm, Textarea, ModelChoiceField
+from django.forms import ModelForm, Textarea, ModelChoiceField, ImageField, \
+    FileInput
 from datetimewidget.widgets import DateWidget
 
 from club_veb.models import Booking
@@ -16,6 +17,10 @@ class UserFullnameChoiceField(ModelChoiceField):
 class BookingForm(ModelForm):
     responsible = UserFullnameChoiceField(queryset=User.objects.all(),
                                           label='Verantwortlich')
+
+    # use FileInput widget to avoid image url display
+    image = ImageField(label=('Bild'), required=False, widget=FileInput,
+                       error_messages = {'invalid': ("Image files only")})
 
     def __init__(self, *args, **kwargs):
         super(BookingForm, self).__init__(*args, **kwargs)

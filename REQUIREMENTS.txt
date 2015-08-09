@@ -4,3 +4,4 @@ django-suit==0.2.13
 django-suit-ckeditor==0.0.2
 Pillow
 django-datetime-widget
+python-dateutil

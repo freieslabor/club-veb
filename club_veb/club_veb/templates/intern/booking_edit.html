@@ -1,0 +1,41 @@
+{% extends "intern/base_internal.html" %}
+
+{% load get_type %}
+
+{% block head %}
+  {{ booking.media }}
+{% endblock %}
+
+{% block content %}
+  <div id="inhalt-inner">
+    <h3>Event Editor</h3>
+	<form enctype="multipart/form-data" method="post" action="{% url 'intern_booking_edit' %}{{ id|default:'' }}">
+      {% csrf_token %}
+
+      <table class="table">
+      {% for field in booking.visible_fields %}
+        <tr class="{% if field.errors %}danger{% endif %}">
+          <th>
+            <label class="control-label">{{ field.label }}</label>
+          </th>
+          <td>
+            {{ field }}
+
+            {% if field.field|get_type == "django.forms.fields.ImageField" and field.value %}
+              <br/><img src="{{ field.value.url }}" width="240" /></br>
+            {% endif %}
+
+            {% if field.errors %}<span>{{ field.errors.as_text }}</span>{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+
+      {% for field in booking.hidden_fields %}
+        {{ field }}
+      {% endfor %}
+
+      <input type="submit" value="Speichern" class="btn btn-default" />
+    </form>
+  </div>
+{% endblock %}

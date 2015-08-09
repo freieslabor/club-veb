@@ -30,9 +30,10 @@ class BookingForm(ModelForm):
     class Meta:
         model = Booking
         exclude = []
+        options = {'format': 'mm/dd/yyyy'}
         widgets = {
-            'date': DateWidget(attrs={'id': 'datetime'}, usel10n=True,
-                               bootstrap_version=3),
+            'date': DateWidget(attrs={'id': 'datetime'},
+                               bootstrap_version=3, options=options),
             'headline': Textarea(attrs={'rows': 3}),
             'description': Textarea(attrs={'rows': 15}),
         }

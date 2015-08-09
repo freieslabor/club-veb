@@ -1,34 +1,43 @@
 {% extends "intern/base_internal.html" %}
 
-{% block head %}
-  {{ booking.media }}
-{% endblock %}
-
 {% block content %}
   <div id="inhalt-inner">
-    <h3>Event Editor</h3>
-    <form enctype="multipart/form-data" method="post" action="{% url 'intern_booking' %}">
-      {% csrf_token %}
+    <h3>Jahresplaner {{ year }}</h3>
 
-      <table class="table">
-      {% for field in booking.visible_fields %}
-        <tr class="{% if field.errors %}danger{% endif %}">
-          <th>
-            <label class="control-label">{{ field.label }}</label>
-          </th>
-          <td>
-            {{ field }}
-            {% if field.errors %}<span>{{ field.errors.as_text }}</span>{% endif %}
-          </td>
+    <div class="btn-group booking-btn" role="group" aria-label="Basic example">
+      {% for y in year_range %}
+        <a href="{% url 'intern_booking' %}{{ y }}" class="btn {% if y|add:0 == year|add:0 %}btn-primary btn-link-active{% else %}btn-default{% endif %}">{{ y }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="booking-btn">
+      <a href="{% url 'intern_booking_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neues Booking</a>
+    </div>
+
+    <table class="table">
+      <tr>
+        <th>Termin</th>
+        <th>Art</th>
+        <th>Name</th>
+        <th>Verantwortlich</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      {% if not bookings %}
+        <tr class="empty-error">
+          <td colspan="6">Keine Bookings vorhanden.</td>
+        </tr>
+      {% endif %}
+      {% for booking in bookings %}
+        <tr class="{{ booking.state }}">
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.type }}</td>
+          <td>{{ booking.name }}</td>
+          <td>{{ booking.responsible|default:'' }}</td>
+          <td>{{ booking.state }}</td>
+          <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
         </tr>
       {% endfor %}
-      </table>
-
-      {% for field in booking.hidden_fields %}
-        {{ field }}
-      {% endfor %}
-
-      <input type="submit" value="Speichern" class="btn btn-default" />
-    </form>
+    </table>
   </div>
 {% endblock %}

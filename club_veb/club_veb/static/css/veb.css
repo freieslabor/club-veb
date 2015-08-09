@@ -58,19 +58,16 @@ a:hover {
   color: #1B354B;
 }
 
-.Gebucht:link,Gebucht:visited,Gebucht:active {
-  color: Blue;
-  font-weight: bold;
+.gebucht {
+  background-color: #f2dede;
 }
 
-.Geblockt:link,Geblockt:visited,Geblockt:active {
-  color: Red;
-  font-weight: bold;
+.geblockt {
+  background-color: #d9edf7;
 }
 
-.Frei:link,Frei:visited,Frei:active {
-  color: Black;
-  font-weight: bold;
+.frei {
+  background-color: #dff0d8;
 }
 
 .link1:link,link1:visited,link1:active {
@@ -440,4 +437,22 @@ a:hover {
   color: black;
   font-weight: bold;
   text-align: center;  
+}
+
+.booking-btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-link-active {
+  color: white !important;
+}
+
+.empty-error {
+  background-color: #f2dede;
+}
+
+.empty-error > td{
+  font-weight: bold;
+  text-align: center;
 }

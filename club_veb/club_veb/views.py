@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
 
+from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .forms import BookingForm
+from .forms import BookingForm, ContactForm
 from .models import Booking
 
 from datetime import date, datetime, timedelta
@@ -12,18 +14,37 @@ from dateutil.parser import parse
 
 
 def zentrale(request):
-    return render(request, 'zentrale.html')
+    bookings = Booking.objects.filter(date__gte=date.today()).order_by('date')
+    return render(request, 'zentrale.html', {'bookings': bookings[:1]})
 
 
 def programm(request):
-    bookings = Booking.objects.all()
-    return render(request, 'programm.html', {
-                  'bookings': bookings,
-                  })
+    bookings = Booking.objects.filter(date__gte=date.today()).order_by('date')
+    return render(request, 'programm.html', {'bookings': bookings[:5]})
 
 
 def kontakt(request):
-    return render(request, 'kontakt.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            send_mail(
+                '[VEB] %s' % form.cleaned_data['subject'],
+                form.cleaned_data['message'],
+                form.cleaned_data['mail'],
+                ['basti@freieslabor.org'],
+                fail_silently=False
+            )
+
+            messages.success(request, 'Vielen Dank für die Nachricht!')
+            form = ContactForm()
+        else:
+            messages.error(request, 'Formular unvollständig.')
+    else:
+        form = ContactForm()
+        print(form)
+
+    return render(request, 'kontakt.html', {'contact': form})
 
 
 def galerie(request):

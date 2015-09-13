@@ -2,7 +2,7 @@ from django.forms import ModelForm, Textarea, ModelChoiceField, ImageField, \
     FileInput
 from datetimewidget.widgets import DateWidget
 
-from club_veb.models import Booking
+from club_veb.models import Booking, Contact
 from django.contrib.auth.models import User
 
 
@@ -57,4 +57,18 @@ class BookingForm(ModelForm):
                                bootstrap_version=3, options=options),
             'headline': Textarea(attrs={'rows': 3}),
             'description': Textarea(attrs={'rows': 15}),
+        }
+
+
+class ContactForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ContactForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = Contact
+        exclude = []
+        widgets = {
+            'message': Textarea(attrs={'rows': 8}),
         }

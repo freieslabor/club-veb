@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from .fields import STATE
-
-import datetime
+from .fields import STATE, SUBJECTS
 
 
 class Booking(models.Model):
@@ -68,3 +66,11 @@ class Booking(models.Model):
     class Meta:
         app_label = 'club_veb'
         verbose_name = 'Booking'
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=200, verbose_name='Ihr Name')
+    mail = models.EmailField(max_length=100, verbose_name='E-Mail-Adresse')
+    subject = models.CharField(max_length=200, verbose_name='Betreff',
+                               choices=SUBJECTS.items())
+    message = models.CharField(max_length=10000, verbose_name='Ihre Nachricht')

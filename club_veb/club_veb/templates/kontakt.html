@@ -3,6 +3,80 @@
 
 {% block content %}
   <div id="inhalt-inner">
-    <h3>Kontakt</h3>
+    <div id="NEWSTHEM">
+      <img src="{% static "img/veb_logo_kl.gif" %}" height=50>
+      <span class="spaced-headline">Kontakt zum Club</span>
+      <img src="{% static "img/veb_logo_kl.gif" %}" height=50>
+    </div>
+    <div class="imprint">
+      <div style="text-align: center;font-weight: bold;">Auftritte • Fragen • Wünsche • Anregungen</div><br>
+
+      <div id="NEWSIN">
+        <p align="center">Wenn ihr mit den Club in Kontakt treten wollt, kein Problem!<br>
+        Über das Formular könnt Ihr jeder Zeit mit uns Kontakt aufnehmen.<br>
+
+        Wir freuen uns über jedes Feedback und helfen auch bei Fragen gerne weiter.<br>      <br>
+
+        Booking-Anfragen für Auftritte sind bei uns auch gerne gesehen.
+        Bei uns sind alle KünstlerInnen willkommen, auch wenn wir vor allem MusikerInnen auftreten lassen
+        freuen wir uns auch über jede andere Form von kultureller Unterhaltung.<br>
+        <br>
+        Schickt euer Demo- und Infomaterial einfach an:</p>
+        <br>
+
+		<div style="text-align: center;">
+          Club VEB
+          <br>
+          c/o Kulturfabrik Löseke
+          <br>
+          Langer Garten 1
+          <br>
+          31137 Hildesheim
+          <br>
+          <br>
+		</div> 
+        <p align="center">
+          Oder meldet euch per eMail-Formular bei unserem Booker.<br>
+          <br>
+          Alle Menschen die im Club arbeiten, tun dies freiwillig und ehrenamtlich, daher entschuldigt bitte falls eine Antwort
+          mal auf sich warten lässt.<br><br>
+        </p>
+      </div>
+      <h3>Kontaktformular</h3> 
+
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{% if 'success' in message.tags %}success{% else %}danger{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+      <form method="post" action="{% url 'kontakt' %}">
+      {% csrf_token %}
+
+      <table class="table">
+      {% for field in contact.visible_fields %}
+        <tr class="{% if field.errors %}danger{% endif %}">
+          <th>
+            <label class="control-label">{{ field.label }}</label>
+          </th>
+          <td>
+            {{ field }}
+            {% if field.errors %}<span>{{ field.errors.as_text }}</span>{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Senden" class="btn btn-default btn-primary btn-link-active"></td>
+      </tr>
+      </table>
+
+      {% for field in contact.hidden_fields %}
+        {{ field }}
+      {% endfor %}
+        </form>
+    </div>
   </div>
 {% endblock %}

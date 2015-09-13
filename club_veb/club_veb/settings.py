@@ -112,8 +112,15 @@ MEDIA_URL = '/uploads/'
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
 )
 
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Club VEB',
 }
+
+EMAIL_HOST = ""
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""

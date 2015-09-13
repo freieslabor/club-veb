@@ -17,7 +17,7 @@ urlpatterns = [
         'club_veb.views.intern_booking_edit', name='intern_booking_edit'),
     url(r'^intern/booking/(?P<year>\S+)?$', 'club_veb.views.intern_booking',
         name='intern_booking'),
-    url(r'^intern/schichtplan/$', 'club_veb.views.intern_schichtplan',
+    url(r'^intern/schichtplan/(?P<year>\S+)?$', 'club_veb.views.intern_schichtplan',
         name='intern_schichtplan'),
     url(r'^intern/todo$', 'club_veb.views.intern_todo', name='intern_todo'),
     url(r'^intern/clubtreffen/$', 'club_veb.views.intern_clubtreffen',

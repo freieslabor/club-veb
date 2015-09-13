@@ -1,24 +1,8 @@
-{% extends "base.html" %}
+{% extends "bookings.html" %}
 {% load static %}
 
-{% block content %}
-  <div id="inhalt-inner">
-    <h2><b>Club Volkseigene Bar</b></h2>
-    <h3>Kultur von Menschen, für Menschen</h3>
-    Jeden Mittwoch ab 21:00Uhr<br>  Kulturfabrik Löseke Langer Garten 1, 31137 Hildesheim
-    <div id="NEWSDAT">Mittwoch 05.08.2015</div>
-    <div id="NEWSTHEM">
-      <img src="{% static "img/veb_logo_kl.gif" %}" height="50">
-	  <span class="spaced-headline">Sommerpause</span>
-      <img src="{% static "img/veb_logo_kl.gif" %}" height="50">
-    </div>
-    <p align="center">
-      <img width="420" src="{% static "img/na.jpg" %}">
-    </p>
-    <div id="NEWSTIT2"></div>
-    <br><br>
-    <div id="NEWSDAT"><br>Eintritt frei!<br> Bis 22:00Uhr feiern wir Wiedervereinigung: <br>Bier(0,33l) + Schnaps(2cl) für 2,50&euro;</div>
-    <div id="NEWSDAT"><br>Wer wir sind:</div>
-    <br>Der Club VEB, kurz für VolksEigeneBar, ist eine nicht kommerzielle Veranstaltungsreihe, die allmittwöchlich in den gemütlichen, heimeligen Räumlichkeiten der Kulturfabrik Löseke in Hildesheim stattfindet. <br><br>Der Club VEB ist also ein Kulturprojekt, das nach dem Motto "Kultur für alle zum Minimaltarif" funktioniert. Der Getränkeverkauf deckt unsere Unkosten und der Eintritt ist immer frei. <br><br>Der Club VEB, das sind zur Zeit etwa 20 Leute, die freiwillig das Ganze organisieren. Das "Ganze" meint meist Konzerte. Aber es gibt auch andere tolle Dinge. So haben auch Kickerturniere, Lesungen und Spieleabende ihren festen Platz in unserem Programm. <br><br>Der Club VEB war in seinen ersten Jahren eine Plattform für Bands aus Hildesheim und Umgebung, die ihre Musik in die Gehörgänge ihrer Mitmenschen bringen wollen. Aber mittlerweile reisen Bands aus ganz Deutschland und Europa (und sogar Südamerika) nach Hildesheim - und spielen "nur" für den Hut.<br><br>
-  </div>
+{% block prefix %}
+  <h2>Monatsprogramm</h2>
+  <h3>Kultur von Menschen, für Menschen</h3>
+  Jeden Mittwoch ab 21:00 Uhr <br>Eintritt frei
 {% endblock %}

@@ -2,6 +2,12 @@
 
 {% block content %}
   <div id="inhalt-inner">
-    <h3>Kollektiv</h3>
+    <h2>Kollektiv</h2>
+	<h3>Derzeit im Kollektiv:</h3>
+	{% for user in users %}
+      <div class="user">{{ user }}</div>
+    {% endfor %}
+	<br>
+    <b>Wahrscheinlich fehlen noch ein paar...</b>
   </div>
 {% endblock %}

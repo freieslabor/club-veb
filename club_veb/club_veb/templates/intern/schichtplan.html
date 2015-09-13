@@ -2,6 +2,37 @@
 
 {% block content %}
   <div id="inhalt-inner">
-    <h3>Schichtplan</h3>
+    <h3>Schichtplan {{ year }}</h3>
+
+    <div class="btn-group booking-btn" role="group">
+      {% for y in year_range %}
+        <a href="{% url 'intern_booking' %}{{ y }}" class="btn {% if y|add:0 == year|add:0 %}btn-primary btn-link-active{% else %}btn-default{% endif %}">{{ y }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="booking-btn">
+      <a href="{% url 'intern_booking_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neues Booking</a>
+    </div>
+
+    <table class="table">
+      <tr>
+        <th>Termin</th>
+        <th>Frühschicht</th>
+        <th>Spätschicht</th>
+        <th>Bandbetreuung</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+      {% for booking in bookings %}
+        <tr class="{{ booking.state }}">
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.early_shift }}</td>
+          <td>{{ booking.late_shift }}</td>
+          <td>{{ booking.band_care }}</td>
+          <td>{{ booking.state }}</td>
+          <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+        </tr>
+      {% endfor %}
+    </table>
   </div>
 {% endblock %}

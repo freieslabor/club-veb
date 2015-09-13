@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
+from django.contrib.auth.models import User
+
 from .forms import BookingForm
 from .models import Booking
 
@@ -33,6 +35,10 @@ def intern_uebersicht(request):
 
 
 def intern_booking(request, year):
+    return booking_table(request, year, 'intern/booking.html')
+
+
+def booking_table(request, year, template):
     current_year = datetime.now().year
     if not year:
         year = current_year
@@ -69,7 +75,51 @@ def intern_booking(request, year):
         first_year = Booking.objects.order_by('date').first().date.year
     year_range = range(first_year, current_year+2)
 
-    return render(request, 'intern/booking.html', {
+    return render(request, template, {
+                  'bookings': bookings,
+                  'year': year,
+                  'year_range': year_range,
+                  })
+
+
+def booking_table(request, year, template):
+    current_year = datetime.now().year
+    if not year:
+        year = current_year
+    else:
+        year = int(year)
+
+    weekday = 2
+    start = date(year, 1, 1)
+    bookings = []
+
+    # get all defined weekdays
+    while start.year == year:
+        bookings_on_date = Booking.objects.filter(date=start)
+        for booking in bookings_on_date:
+            bookings.append(booking.simple_output())
+
+        # insert dummy event if no event on specific weekday yet
+        if bookings_on_date.count() == 0 and start.weekday() == weekday:
+            dummy = {
+                'id': start.strftime('%Y-%m-%d'),
+                'date': start,
+                'type': '',
+                'name': '',
+                'responsible': '',
+                'state': 'frei',
+            }
+            bookings.append(dummy)
+        start += timedelta(days=1)
+
+    # show year range
+    if Booking.objects.count() == 0:
+        first_year = current_year
+    else:
+        first_year = Booking.objects.order_by('date').first().date.year
+    year_range = range(first_year, current_year+2)
+
+    return render(request, template, {
                   'bookings': bookings,
                   'year': year,
                   'year_range': year_range,
@@ -100,6 +150,7 @@ def intern_booking_edit(request, id):
                 booking = bookingForm
             booking.save()
             year = bookingForm.cleaned_data['date'].year
+            print(bookingForm.cleaned_data)
             return HttpResponseRedirect(
                 reverse('club_veb.views.intern_booking', args=[year])
             )
@@ -112,8 +163,8 @@ def intern_booking_edit(request, id):
                   {'booking': bookingForm, 'id': id})
 
 
-def intern_schichtplan(request):
-    return render(request, 'intern/schichtplan.html')
+def intern_schichtplan(request, year):
+    return booking_table(request, year, 'intern/schichtplan.html')
 
 
 def intern_todo(request):
@@ -133,4 +184,5 @@ def intern_mail(request):
 
 
 def intern_kollektiv(request):
-    return render(request, 'intern/kollektiv.html')
+    users = [user.first_name or user.username for user in User.objects.all()]
+    return render(request, 'intern/kollektiv.html', {'users': users})

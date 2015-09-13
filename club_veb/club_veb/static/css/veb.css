@@ -58,6 +58,10 @@ a:hover {
   color: #1B354B;
 }
 
+h3 {
+  text-align: center;
+}
+
 .gebucht {
   background-color: #f2dede;
 }
@@ -378,6 +382,7 @@ a:hover {
   font-weight: bolder;
   color: Black;
   margin-top: -20px;
+  text-align: center !important;
 }
 
 .spaced-headline {
@@ -387,12 +392,10 @@ a:hover {
 
 .imprint {
   text-align: left;
-  margin-bottom: 280px;
 }
 
 #NEWSTIT {
   margin-left: 75px;
-  float: left;
   margin-top: 5px;
   width: 350px;
   font-size: 15px;
@@ -414,29 +417,43 @@ a:hover {
 }
 
 #NEWSPIC {
-  margin-left:70px;
-  margin-top: 10px;
+  margin: 15px;
   text-align: left; 
   font-size: 15px;
   font-weight: bold;
   color: #1B354B;
   font-style: italic;
+  float: left;
 }
 
 #NEWSIN {
   font-size: 15px;
-  width: 650px;
+  margin-right: 15px;
   line-height: 16px;
   font-stretch: semi-condensed;
   text-align: justify;
 }
 
 #NEWSDAT {
-  margin-top: 25px;
+  margin-top: 15px;
+  margin-bottom: 20px;
   font-size: 16px;
   color: black;
   font-weight: bold;
   text-align: center;  
+}
+
+.event {
+  text-align: left !important;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  border: 1px solid #999999;
+}
+
+.event-content {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .booking-btn {

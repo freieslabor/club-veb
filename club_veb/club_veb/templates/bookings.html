@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div id="inhalt-inner">
+  {% block prefix %}{% endblock %}
+  {% for booking in bookings %}
+    <div class="event">
+      <div id="NEWSDAT">{{ booking.date }}</div>
+      <div id="NEWSTHEM">
+        <img src="{% static "img/veb_logo_kl.gif" %}" height=50>
+        <span class="spaced-headline">{{ booking.headline }}</span>
+        <img src="{% static "img/veb_logo_kl.gif" %}" height=50>
+      </div>
+      <div class="event-content">
+        <span id="NEWSPIC">
+          {% if booking.image %}
+            <img width="210" src="/uploads/{{ booking.image }}">
+          {% else %}
+            <img width="210" src="{% static "img/na.jpg" %}">
+          {% endif %}
+        </span>
+        <div id="NEWSIN">{{ booking.description }}</div> 
+		{% if booking.link %}
+          <br /><i><a href="{{ booking.link }}">Mehr Infos im Web</a></i>
+        {% endif %}
+        <div style="clear: both"></div>
+      </div>
+    </div>
+  {% endfor %}
+  {% block postfix %}{% endblock %}
+</div>
+{% endblock %}

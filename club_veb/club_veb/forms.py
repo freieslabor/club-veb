@@ -16,11 +16,32 @@ class UserFullnameChoiceField(ModelChoiceField):
 
 class BookingForm(ModelForm):
     responsible = UserFullnameChoiceField(queryset=User.objects.all(),
-                                          label='Verantwortlich')
+                                          label='Verantwortlich',
+                                          required=False)
+    early_shift1 = UserFullnameChoiceField(queryset=User.objects.all(),
+                                           label='Frühschicht #1',
+                                           required=False)
+    early_shift2 = UserFullnameChoiceField(queryset=User.objects.all(),
+                                           label='Frühschicht #2',
+                                           required=False)
+
+    late_shift1 = UserFullnameChoiceField(queryset=User.objects.all(),
+                                          label='Spätschicht #1',
+                                          required=False)
+    late_shift2 = UserFullnameChoiceField(queryset=User.objects.all(),
+                                          label='Spätschicht #2',
+                                          required=False)
+
+    band_care1 = UserFullnameChoiceField(queryset=User.objects.all(),
+                                         label='Bandbetreuung #1',
+                                         required=False)
+    band_care2 = UserFullnameChoiceField(queryset=User.objects.all(),
+                                         label='Bandbetreuung #2',
+                                         required=False)
 
     # use FileInput widget to avoid image url display
     image = ImageField(label=('Bild'), required=False, widget=FileInput,
-                       error_messages = {'invalid': ("Image files only")})
+                       error_messages={'invalid': ("Image files only")})
 
     def __init__(self, *args, **kwargs):
         super(BookingForm, self).__init__(*args, **kwargs)

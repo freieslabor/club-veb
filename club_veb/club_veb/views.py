@@ -6,8 +6,8 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .forms import BookingForm, ContactForm
-from .models import Booking
+from .forms import BookingForm, ContactForm, ClubMeetingForm
+from .models import Booking, ClubMeeting
 
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
@@ -192,8 +192,58 @@ def intern_todo(request):
     return render(request, 'intern/todo.html')
 
 
-def intern_clubtreffen(request):
-    return render(request, 'intern/clubtreffen.html')
+def intern_clubtreffen(request, year):
+    current_year = datetime.now().year
+    if not year:
+        year = current_year
+    else:
+        year = int(year)
+
+    meetings = ClubMeeting.objects.filter(date__year=year)
+
+    # show year range
+    try:
+        first_year = ClubMeeting.objects.order_by('date').first().date.year
+    except AttributeError:
+        first_year = current_year
+
+    year_range = range(first_year, current_year+2)
+
+    return render(request, 'intern/clubtreffen.html', {
+                  'meetings': meetings,
+                  'year': year,
+                  'year_range': year_range,
+                  })
+
+
+def intern_clubtreffen_edit(request, id):
+    # parse id or date
+    try:
+        id = int(id)
+    except (ValueError, TypeError):
+        id = None
+
+    clubMeeting = ClubMeeting.objects.get(id=id) if id else None
+
+    if request.method == 'POST':
+        clubMeetingForm = ClubMeetingForm(request.POST)
+
+        if clubMeetingForm.is_valid():
+            if clubMeeting:
+                clubMeeting.__dict__.update(clubMeetingForm.cleaned_data)
+            else:
+                clubMeeting = clubMeetingForm
+            clubMeeting.save()
+            return HttpResponseRedirect(
+                reverse('club_veb.views.intern_clubtreffen')
+            )
+    elif clubMeeting:
+        clubMeetingForm = ClubMeetingForm(instance=clubMeeting)
+    else:
+        clubMeetingForm = ClubMeetingForm()
+
+    return render(request, 'intern/clubtreffen_edit.html',
+                  {'clubMeeting': clubMeetingForm, 'id': id})
 
 
 def intern_benutzer(request):

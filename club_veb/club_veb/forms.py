@@ -1,8 +1,8 @@
 from django.forms import ModelForm, Textarea, ModelChoiceField, ImageField, \
     FileInput
-from datetimewidget.widgets import DateWidget
+from datetimewidget.widgets import DateWidget, DateTimeWidget
 
-from club_veb.models import Booking, Contact
+from club_veb.models import Booking, Contact, ClubMeeting
 from django.contrib.auth.models import User
 
 
@@ -71,4 +71,29 @@ class ContactForm(ModelForm):
         exclude = []
         widgets = {
             'message': Textarea(attrs={'rows': 8}),
+        }
+
+
+class ClubMeetingForm(ModelForm):
+    host = UserFullnameChoiceField(queryset=User.objects.all(),
+                                   label='Gastgeber')
+
+    def __init__(self, *args, **kwargs):
+        super(ClubMeetingForm, self).__init__(*args, **kwargs)
+        # set host dropdown initially to current user
+        if 'user' in kwargs:
+            self.fields['host'].initial = kwargs['user']
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = ClubMeeting
+        exclude = []
+        options = {
+            'format': 'mm/dd/yyyy hh:ii',
+            'autoclose': True,
+            }
+        widgets = {
+            'date': DateTimeWidget(attrs={'id': 'datetime_clubtreffen'},
+                                   bootstrap_version=3, options=options),
         }

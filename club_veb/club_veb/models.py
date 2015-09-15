@@ -74,3 +74,10 @@ class Contact(models.Model):
     subject = models.CharField(max_length=200, verbose_name='Betreff',
                                choices=SUBJECTS.items())
     message = models.CharField(max_length=10000, verbose_name='Ihre Nachricht')
+
+
+class ClubMeeting(models.Model):
+    host = models.ForeignKey(User, verbose_name='Gastgeber',
+                             related_name='+', blank=True, null=True)
+    address = models.CharField(max_length=200, verbose_name='Adresse')
+    date = models.DateTimeField(verbose_name='Termin')

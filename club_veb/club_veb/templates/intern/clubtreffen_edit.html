@@ -1,0 +1,39 @@
+{% extends "intern/base_internal.html" %}
+{% load static %}
+
+{% block head %}
+  {{ clubMeeting.media }}
+{% endblock %}
+
+{% block content %}
+  <div id="inhalt-inner">
+    <div id="NEWSTHEM">
+      <h3>Clubtreffen {% if id %}ändern{% else %}anlegen{% endif %}</h3>
+      <form method="post" action="{% url 'intern_clubtreffen_edit' %}{{ id|default:'' }}">
+      {% csrf_token %}
+
+      <table class="table">
+      {% for field in clubMeeting.visible_fields %}
+        <tr class="{% if field.errors %}danger{% endif %}">
+          <th>
+            <label class="control-label">{{ field.label }}</label>
+          </th>
+          <td>
+            {{ field }}
+            {% if field.errors %}<span>{{ field.errors.as_text }}</span>{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Senden" class="btn btn-default btn-primary btn-link-active"></td>
+      </tr>
+      </table>
+
+      {% for field in clubMeeting.hidden_fields %}
+        {{ field }}
+      {% endfor %}
+        </form>
+    </div>
+  </div>
+{% endblock %}

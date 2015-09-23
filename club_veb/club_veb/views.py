@@ -186,29 +186,24 @@ def intern_booking_edit(request, id):
 
         id = None
 
-    booking = Booking.objects.get(id=id) if id else None
+    booking = get_object_or_404(Booking, pk=id)
 
     if request.method == 'POST':
-        bookingForm = BookingForm(request.POST, request.FILES)
+        form = BookingForm(request.POST, request.FILES, instance=booking)
 
-        if bookingForm.is_valid():
-            if booking:
-                booking.__dict__.update(bookingForm.cleaned_data)
-            else:
-                booking = bookingForm
-            booking.save()
-            year = bookingForm.cleaned_data['date'].year
-            print(bookingForm.cleaned_data)
+        if form.is_valid():
+            form.save()
+            year = form.cleaned_data['date'].year
             return HttpResponseRedirect(
                 reverse('club_veb.views.intern_booking', args=[year])
             )
     elif booking:
-        bookingForm = BookingForm(instance=booking)
+        form = BookingForm(instance=booking)
     else:
-        bookingForm = BookingForm(initial={'date': date})
+        form = BookingForm(initial={'date': date})
 
     return render(request, 'intern/booking_edit.html',
-                  {'booking': bookingForm, 'id': id})
+                  {'booking': form, 'id': id})
 
 
 def intern_schichtplan(request, year):
@@ -244,33 +239,21 @@ def intern_clubtreffen(request, year):
 
 
 def intern_clubtreffen_edit(request, id):
-    # parse id or date
-    try:
-        id = int(id)
-    except (ValueError, TypeError):
-        id = None
-
-    clubMeeting = ClubMeeting.objects.get(id=id) if id else None
+    clubMeeting = get_object_or_404(ClubMeeting, id=id)
 
     if request.method == 'POST':
-        clubMeetingForm = ClubMeetingForm(request.POST)
+        form = ClubMeetingForm(request.POST, instance=ClubMeeting)
 
-        if clubMeetingForm.is_valid():
-            if clubMeeting:
-                clubMeeting.__dict__.update(clubMeetingForm.cleaned_data)
-            else:
-                clubMeeting = clubMeetingForm
-            clubMeeting.save()
+        if form.is_valid():
+            form.save()
             return HttpResponseRedirect(
                 reverse('club_veb.views.intern_clubtreffen')
             )
-    elif clubMeeting:
-        clubMeetingForm = ClubMeetingForm(instance=clubMeeting)
     else:
-        clubMeetingForm = ClubMeetingForm()
+        form = ClubMeetingForm(instance=clubMeeting)
 
     return render(request, 'intern/clubtreffen_edit.html',
-                  {'clubMeeting': clubMeetingForm, 'id': id})
+                  {'clubMeeting': form, 'id': id})
 
 
 def intern_benutzer(request):

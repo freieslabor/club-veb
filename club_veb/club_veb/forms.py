@@ -1,12 +1,12 @@
-from django.forms import ModelForm, Textarea, ModelChoiceField, ImageField, \
-    FileInput
+from django import forms
 from datetimewidget.widgets import DateWidget, DateTimeWidget
 
 from club_veb.models import Booking, Contact, ClubMeeting
 from django.contrib.auth.models import User
 
 
-class UserFullnameChoiceField(ModelChoiceField):
+
+class UserFullnameChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         if obj.get_full_name() == '':
             return obj.username
@@ -14,7 +14,7 @@ class UserFullnameChoiceField(ModelChoiceField):
             return obj.get_full_name()
 
 
-class BookingForm(ModelForm):
+class BookingForm(forms.ModelForm):
     responsible = UserFullnameChoiceField(queryset=User.objects.all(),
                                           label='Verantwortlich',
                                           required=False)
@@ -40,8 +40,9 @@ class BookingForm(ModelForm):
                                          required=False)
 
     # use FileInput widget to avoid image url display
-    image = ImageField(label=('Bild'), required=False, widget=FileInput,
-                       error_messages={'invalid': ("Image files only")})
+    image = forms.ImageField(label=('Bild'), required=False,
+                             widget=forms.FileInput,
+                             error_messages={'invalid': ("Image files only")})
 
     def __init__(self, *args, **kwargs):
         super(BookingForm, self).__init__(*args, **kwargs)
@@ -55,12 +56,12 @@ class BookingForm(ModelForm):
         widgets = {
             'date': DateWidget(attrs={'id': 'datetime'},
                                bootstrap_version=3, options=options),
-            'headline': Textarea(attrs={'rows': 3}),
-            'description': Textarea(attrs={'rows': 15}),
+            'headline': forms.Textarea(attrs={'rows': 3}),
+            'description': forms.Textarea(attrs={'rows': 15}),
         }
 
 
-class ContactForm(ModelForm):
+class ContactForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -70,11 +71,11 @@ class ContactForm(ModelForm):
         model = Contact
         exclude = []
         widgets = {
-            'message': Textarea(attrs={'rows': 8}),
+            'message': forms.Textarea(attrs={'rows': 8}),
         }
 
 
-class ClubMeetingForm(ModelForm):
+class ClubMeetingForm(forms.ModelForm):
     host = UserFullnameChoiceField(queryset=User.objects.all(),
                                    label='Gastgeber')
 

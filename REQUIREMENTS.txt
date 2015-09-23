@@ -5,3 +5,4 @@ django-suit-ckeditor==0.0.2
 Pillow
 django-datetime-widget
 python-dateutil
+django-photologue

@@ -1,0 +1,25 @@
+/* Some customisation for the Photologue demo site. */
+
+div.row img.thumbnail {
+	margin-bottom: 5px;
+	display: inline-block;
+}
+
+.page-header {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+td {
+	width: 100px;
+}
+
+a.btn.btn-default {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9 {
+  float: none !important;
+}
+

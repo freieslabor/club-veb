@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 from .fields import STATE, SUBJECTS
 
+from photologue.admin import GalleryAdminForm, PhotoAdminForm
+from photologue.models import Gallery, Photo
+
 
 class Booking(models.Model):
     date = models.DateField(verbose_name='Termin')
@@ -81,3 +84,16 @@ class ClubMeeting(models.Model):
                              related_name='+', blank=True, null=True)
     address = models.CharField(max_length=200, verbose_name='Adresse')
     date = models.DateTimeField(verbose_name='Termin')
+
+
+class VEBGalleryAdminForm(GalleryAdminForm):
+    class Meta:
+        model = Gallery
+        exclude = ['sites', 'is_public']
+
+
+class VEBPhotoAdminForm(PhotoAdminForm):
+    class Meta:
+        model = Photo
+        exclude = ['slug', 'caption', 'date_added', 'is_public', 'sites',
+                   'crop_from', 'effect']

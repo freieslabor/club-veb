@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
@@ -6,8 +6,12 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .forms import BookingForm, ContactForm, ClubMeetingForm
-from .models import Booking, ClubMeeting
+from .forms import BookingForm, ContactForm, ClubMeetingForm, \
+    VEBUploadZipForm
+from .models import Booking, ClubMeeting, VEBGalleryAdminForm, \
+    VEBPhotoAdminForm
+
+from photologue import models as photo_models
 
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
@@ -47,8 +51,75 @@ def kontakt(request):
     return render(request, 'kontakt.html', {'contact': form})
 
 
-def galerie(request):
-    return render(request, 'galerie.html')
+def intern_galerie(request):
+    data = {
+            'galleries': photo_models.Gallery.objects.all(),
+            'photos': photo_models.Photo.objects.all(),
+    }
+    return render(request, 'intern/galerie.html', data)
+
+
+def intern_galerie_edit(request, id):
+    gallery = get_object_or_404(photo_models.Gallery, pk=id)
+
+    if request.method == 'POST':
+        form = VEBGalleryAdminForm(request.POST, instance=gallery)
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect(
+                reverse('club_veb.views.intern_galerie'))
+
+    else:
+        form = VEBGalleryAdminForm(instance=gallery)
+
+    return render(request, 'intern/galerie_edit.html',
+                  {'gallery': form, 'id': id})
+
+
+def intern_galerie_del(request, id):
+    gallery = get_object_or_404(photo_models.Gallery, pk=id)
+    gallery.delete()
+    return HttpResponseRedirect(reverse('club_veb.views.intern_galerie'))
+
+
+def intern_galerie_photo_edit(request, id):
+    photo = get_object_or_404(photo_models.Photo, pk=id)
+
+    if request.method == 'POST':
+        form = VEBPhotoAdminForm(request.POST, request.FILES, instance=photo)
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect(
+                reverse('club_veb.views.intern_galerie'))
+
+    else:
+        form = VEBPhotoAdminForm(instance=photo)
+
+    return render(request, 'intern/galerie_edit.html',
+                  {'gallery': form, 'id': id})
+
+
+def intern_galerie_photo_del(request, id):
+    photo = get_object_or_404(photo_models.Photo, pk=id)
+    photo.delete()
+    return HttpResponseRedirect(reverse('club_veb.views.intern_galerie'))
+
+
+def intern_galerie_photo_zip_upload(request):
+    if request.method == 'POST':
+        form = VEBUploadZipForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect(
+                reverse('club_veb.views.intern_galerie'))
+
+    else:
+        form = VEBUploadZipForm()
+
+    return render(request, 'intern/galerie_edit.html', {'gallery': form})
 
 
 def intern_uebersicht(request):
@@ -57,50 +128,6 @@ def intern_uebersicht(request):
 
 def intern_booking(request, year):
     return booking_table(request, year, 'intern/booking.html')
-
-
-def booking_table(request, year, template):
-    current_year = datetime.now().year
-    if not year:
-        year = current_year
-    else:
-        year = int(year)
-
-    weekday = 2
-    start = date(year, 1, 1)
-    bookings = []
-
-    # get all defined weekdays
-    while start.year == year:
-        bookings_on_date = Booking.objects.filter(date=start)
-        for booking in bookings_on_date:
-            bookings.append(booking.simple_output())
-
-        # insert dummy event if no event on specific weekday yet
-        if bookings_on_date.count() == 0 and start.weekday() == weekday:
-            dummy = {
-                'id': start.strftime('%Y-%m-%d'),
-                'date': start,
-                'type': '',
-                'name': '',
-                'responsible': '',
-                'state': 'frei',
-            }
-            bookings.append(dummy)
-        start += timedelta(days=1)
-
-    # show year range
-    if Booking.objects.count() == 0:
-        first_year = current_year
-    else:
-        first_year = Booking.objects.order_by('date').first().date.year
-    year_range = range(first_year, current_year+2)
-
-    return render(request, template, {
-                  'bookings': bookings,
-                  'year': year,
-                  'year_range': year_range,
-                  })
 
 
 def booking_table(request, year, template):

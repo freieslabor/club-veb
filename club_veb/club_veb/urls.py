@@ -4,14 +4,32 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
+from photologue.views import GalleryListView
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^galerie/$', GalleryListView.as_view(), name='galerie'),
 
     url(r'^programm/$', 'club_veb.views.programm', name='programm'),
 
     url(r'^kontakt/$', 'club_veb.views.kontakt', name='kontakt'),
 
-    url(r'^galerie/$', 'club_veb.views.galerie', name='galerie'),
+    url(r'^intern/galerie/$', 'club_veb.views.intern_galerie',
+        name='intern_galerie'),
+    url(r'^intern/galerie/edit/(?P<id>\S+)?$',
+        'club_veb.views.intern_galerie_edit', name='intern_galerie_edit'),
+    url(r'^intern/galerie/del/(?P<id>\S+)?$',
+        'club_veb.views.intern_galerie_del', name='intern_galerie_del'),
+    url(r'^intern/galerie/photo_edit/(?P<id>\S+)?$',
+        'club_veb.views.intern_galerie_photo_edit',
+        name='intern_galerie_photo_edit'),
+    url(r'^intern/galerie/photo_del/(?P<id>\S+)?$',
+        'club_veb.views.intern_galerie_photo_del',
+        name='intern_galerie_photo_del'),
+    url(r'^intern/galerie/photo_upload/$',
+        'club_veb.views.intern_galerie_photo_zip_upload',
+        name='intern_galerie_photo_zip_upload'),
 
     url(r'^impressum/$', TemplateView.as_view(template_name='impressum.html'),
         name='impressum'),

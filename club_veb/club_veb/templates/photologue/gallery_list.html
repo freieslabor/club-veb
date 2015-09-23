@@ -1,0 +1,31 @@
+{% extends "photologue/root.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "All galleries" %}{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" type="text/css" href="{% static "css/veb-gallery.css" %}" media="all">{% endblock %}
+
+
+{% block content %}
+
+    {% if object_list %}
+        {% for gallery in object_list %}
+            <div class="gallery row col-lg-12">
+                <h2>{{ gallery.title }}</h2>
+                <p class="muted"><small>{% trans "Published" %} {{ gallery.date_added }}</small></p>
+                {% if gallery.description %}<p>{{ gallery.description|safe }}</p>{% endif %}
+				{% if not gallery.sample %}<i>Diese Galerie enthält momentan keine Bilder.</i>{% endif %}
+                {% for photo in gallery.sample %}
+                    <a href="{{ photo.image.url }}">
+						<img src="{{ photo.get_thumbnail_url }}" class="thumbnail" title="{{ photo.title }}" alt="{{ photo.title }}">
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="gallery row col-lg-12">{% trans "No galleries were found" %}.</div>
+    {% endif %}
+
+    {% include "photologue/includes/paginator.html" %}
+    
+{% endblock %}

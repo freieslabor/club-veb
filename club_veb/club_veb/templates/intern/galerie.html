@@ -1,0 +1,62 @@
+{% extends "intern/base_internal.html" %}
+
+{% block content %}
+  <div id="inhalt-inner">
+    <h2>Galerien</h2>
+    <div class="booking-btn">
+      <a href="{% url 'intern_galerie_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neue Galerie</a>
+    </div>
+	<div style="overflow:auto; max-height:400px;">
+      <table class="table">
+        <tr>
+          <th>Galerie</th>
+          <th>Anzahl Bilder</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {% if not galleries %}
+          <tr class="empty-error">
+            <td colspan="6">Keine Galerien vorhanden.</td>
+          </tr>
+        {% endif %}
+        {% for gallery in galleries %}
+          <tr>
+            <td>{{ gallery.title }}</td>
+            <td>{{ gallery.photo_count }}</td>
+            <td><a href="{% url 'intern_galerie_edit' %}{{ gallery.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{% url 'intern_galerie_del' %}{{ gallery.id|default:'' }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <h2>Fotos</h2>
+    <div class="booking-btn">
+      <a href="{% url 'intern_galerie_photo_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neues Foto</a>
+    </div>
+    <div class="booking-btn">
+      <a href="{% url 'intern_galerie_photo_zip_upload' %}"><span class="glyphicon glyphicon-plus"></span> Neues Foto-ZIP</a>
+    </div>
+	<div style="overflow: auto; max-height: 500px;">
+      <table class="table">
+        <tr>
+          <th>Titel</th>
+          <th></th>
+          <th></th>
+        </tr>
+        {% if not photos %}
+          <tr class="empty-error">
+            <td colspan="6">Keine Fotos vorhanden.</td>
+          </tr>
+        {% endif %}
+        {% for photo in photos %}
+          <tr>
+            <td>{{ photo.title }}</td>
+            <td><a href="{% url 'intern_galerie_photo_edit' %}{{ photo.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{% url 'intern_galerie_photo_del' %}{{ photo.id|default:'' }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+          </tr>
+        {% endfor %}
+      </table>
+	</div>
+  </div>
+{% endblock %}

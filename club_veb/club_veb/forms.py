@@ -4,6 +4,7 @@ from datetimewidget.widgets import DateWidget, DateTimeWidget
 from club_veb.models import Booking, Contact, ClubMeeting
 from django.contrib.auth.models import User
 
+from photologue.forms import UploadZipForm
 
 
 class UserFullnameChoiceField(forms.ModelChoiceField):
@@ -98,3 +99,13 @@ class ClubMeetingForm(forms.ModelForm):
             'date': DateTimeWidget(attrs={'id': 'datetime_clubtreffen'},
                                    bootstrap_version=3, options=options),
         }
+
+
+class VEBUploadZipForm(UploadZipForm):
+    # hide useless fields for our usecase
+    caption = forms.CharField(required=False, initial="",
+                              widget=forms.HiddenInput())
+    description = forms.CharField(required=False, initial="",
+                                  widget=forms.HiddenInput())
+    is_public = forms.CharField(required=False, initial=True,
+                                widget=forms.HiddenInput())

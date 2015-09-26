@@ -1,6 +1,5 @@
 TODOs
 =====
-* Clubtreffen loeschbar
 * neues Clubtreffen: Mail an alle
 * Kontakt: Captcha
 * Intern: login etc.

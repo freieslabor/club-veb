@@ -261,6 +261,12 @@ def intern_clubtreffen_edit(request, id):
                   {'clubMeeting': form, 'id': id})
 
 
+def intern_clubtreffen_del(request, id):
+    meeting = get_object_or_404(ClubMeeting, pk=id)
+    meeting.delete()
+    return HttpResponseRedirect(reverse('club_veb.views.intern_clubtreffen'))
+
+
 def intern_benutzer(request):
     return render(request, 'intern/benutzer.html')
 

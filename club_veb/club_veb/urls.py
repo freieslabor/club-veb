@@ -52,7 +52,9 @@ urlpatterns = [
     url(r'^intern/clubtreffen/edit/(?P<id>\S+)?$',
         'club_veb.views.intern_clubtreffen_edit',
         name='intern_clubtreffen_edit'),
-
+    url(r'^intern/clubtreffen/del/(?P<id>\S+)?$',
+        'club_veb.views.intern_clubtreffen_del',
+        name='intern_clubtreffen_del'),
     url(r'^intern/clubtreffen/(?P<year>\S+)?$',
         'club_veb.views.intern_clubtreffen',
         name='intern_clubtreffen'),

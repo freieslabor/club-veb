@@ -20,6 +20,7 @@
         <th>Gastgeber</th>
         <th>Adresse</th>
         <th></th>
+        <th></th>
       </tr>
       {% if not meetings %}
         <tr class="empty-error">
@@ -32,6 +33,7 @@
           <td>{{ meeting.host }}</td>
           <td>{{ meeting.address }}</td>
           <td><a href="{% url 'intern_clubtreffen_edit' %}{{ meeting.id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td><a href="{% url 'intern_clubtreffen_del' %}{{ meeting.id }}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
       {% endfor %}
     </table>

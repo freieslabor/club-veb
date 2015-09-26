@@ -65,7 +65,7 @@ def intern_galerie(request):
 
 
 def intern_galerie_edit(request, id):
-    gallery = get_object_or_404(photo_models.Gallery, pk=id)
+    gallery = photo_models.Gallery.objects.get(pk=id) if id else None
 
     if request.method == 'POST':
         form = VEBGalleryAdminForm(request.POST, instance=gallery)
@@ -89,7 +89,7 @@ def intern_galerie_del(request, id):
 
 
 def intern_galerie_photo_edit(request, id):
-    photo = get_object_or_404(photo_models.Photo, pk=id)
+    photo = photo_models.Photo.objects.get(pk=id) if id else None
 
     if request.method == 'POST':
         form = VEBPhotoAdminForm(request.POST, request.FILES, instance=photo)
@@ -191,7 +191,7 @@ def intern_booking_edit(request, id):
 
         id = None
 
-    booking = get_object_or_404(Booking, pk=id)
+    booking = Booking.objects.get(pk=id) if id else None
 
     if request.method == 'POST':
         form = BookingForm(request.POST, request.FILES, instance=booking)
@@ -244,10 +244,10 @@ def intern_clubtreffen(request, year):
 
 
 def intern_clubtreffen_edit(request, id):
-    clubMeeting = get_object_or_404(ClubMeeting, id=id)
+    clubMeeting = ClubMeeting.objects.get(pk=id) if id else None
 
     if request.method == 'POST':
-        form = ClubMeetingForm(request.POST, instance=ClubMeeting)
+        form = ClubMeetingForm(request.POST, instance=clubMeeting)
 
         if form.is_valid():
             form.save()

@@ -12,6 +12,7 @@ from .models import Booking, ClubMeeting, VEBGalleryAdminForm, \
     VEBPhotoAdminForm
 
 from photologue import models as photo_models
+from photologue import views as photo_views
 
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
@@ -49,6 +50,10 @@ def kontakt(request):
         print(form)
 
     return render(request, 'kontakt.html', {'contact': form})
+
+
+class VEBGalleryListView(photo_views.GalleryListView):
+    paginate_by = 3
 
 
 def intern_galerie(request):

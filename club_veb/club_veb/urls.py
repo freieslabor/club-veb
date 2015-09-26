@@ -4,12 +4,13 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
-from photologue.views import GalleryListView
+from .views import VEBGalleryListView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^galerie/$', GalleryListView.as_view(), name='galerie'),
+    url(r'^galerie/$(?P<id>\S+)?$', VEBGalleryListView.as_view(),
+        name='galerie'),
 
     url(r'^programm/$', 'club_veb.views.programm', name='programm'),
 

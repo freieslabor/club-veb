@@ -23,8 +23,8 @@
           <tr>
             <td>{{ gallery.title }}</td>
             <td>{{ gallery.photo_count }}</td>
-            <td><a href="{% url 'intern_galerie_edit' %}{{ gallery.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-            <td><a href="{% url 'intern_galerie_del' %}{{ gallery.id|default:'' }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a href="{% url 'intern_galerie_edit' %}{{ gallery.id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{% url 'intern_galerie_del' %}{{ gallery.id }}"><span class="glyphicon glyphicon-remove"></span></a></td>
           </tr>
         {% endfor %}
       </table>

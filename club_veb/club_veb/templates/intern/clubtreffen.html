@@ -31,7 +31,7 @@
           <td>{{ meeting.date }}</td>
           <td>{{ meeting.host }}</td>
           <td>{{ meeting.address }}</td>
-          <td><a href="{% url 'intern_clubtreffen_edit' %}{{ meeting.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td><a href="{% url 'intern_clubtreffen_edit' %}{{ meeting.id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
         </tr>
       {% endfor %}
     </table>

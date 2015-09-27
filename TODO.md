@@ -1,6 +1,5 @@
 TODOs
 =====
-* neues Clubtreffen: Mail an alle
 * Kontakt: Captcha
 * Intern: login etc.
 * Mail: Mailinglistenwebinterface verlinken?

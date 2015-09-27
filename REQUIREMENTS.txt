@@ -6,3 +6,4 @@ Pillow
 django-datetime-widget
 python-dateutil
 django-photologue
+django-simple-captcha

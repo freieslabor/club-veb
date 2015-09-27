@@ -16,6 +16,7 @@ from photologue import views as photo_views
 
 from datetime import date, datetime, timedelta
 from dateutil.parser import parse
+import textwrap
 
 
 def zentrale(request):
@@ -244,18 +245,39 @@ def intern_clubtreffen(request, year):
 
 
 def intern_clubtreffen_edit(request, id):
-    clubMeeting = ClubMeeting.objects.get(pk=id) if id else None
+    meeting = ClubMeeting.objects.get(pk=id) if id else None
 
     if request.method == 'POST':
-        form = ClubMeetingForm(request.POST, instance=clubMeeting)
+        form = ClubMeetingForm(request.POST, instance=meeting)
 
         if form.is_valid():
             form.save()
+
+            date = form.cleaned_data['date'].strftime("%d.%m.%Y")
+            time = form.cleaned_data['date'].strftime("%H:%M")
+            host = form.cleaned_data['host']
+            host_name = host.username if host.get_full_name() == '' else \
+                host.get_full_name()
+            address = form.cleaned_data['address']
+
+            msg = """Am %s um %s Uhr findet ein VEB-Clubtreffen bei %s (%s)
+            statt.""" % (date, time, host_name, address)
+
+            for user in User.objects.exclude(email__exact=''):
+                send_mail(
+                    '[VEB] Clubtreffen am %s' % date,
+                    textwrap.dedent(msg),
+                    'no-reply@club-veb.com',
+                    [user.email],
+                    fail_silently=False
+                )
+
             return HttpResponseRedirect(
                 reverse('club_veb.views.intern_clubtreffen')
             )
     else:
-        form = ClubMeetingForm(instance=clubMeeting)
+        # FIXME: request.user
+        form = ClubMeetingForm(instance=meeting)
 
     return render(request, 'intern/clubtreffen_edit.html',
                   {'clubMeeting': form, 'id': id})

@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'datetimewidget',
     'photologue',
     'sortedm2m',
+    'captcha',
     'club_veb',
 )
 

@@ -9,6 +9,8 @@ from .views import VEBGalleryListView
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^captcha/', include('captcha.urls')),
+
     url(r'^galerie/$(?P<id>\S+)?$', VEBGalleryListView.as_view(),
         name='galerie'),
 

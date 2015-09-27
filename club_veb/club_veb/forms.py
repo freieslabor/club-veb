@@ -5,6 +5,7 @@ from club_veb.models import Booking, Contact, ClubMeeting
 from django.contrib.auth.models import User
 
 from photologue.forms import UploadZipForm
+from captcha.fields import CaptchaField
 
 
 class UserFullnameChoiceField(forms.ModelChoiceField):
@@ -63,6 +64,8 @@ class BookingForm(forms.ModelForm):
 
 
 class ContactForm(forms.ModelForm):
+    captcha = CaptchaField()
+
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():

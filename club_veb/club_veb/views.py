@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .forms import BookingForm, ContactForm, ClubMeetingForm, \
     VEBUploadZipForm
@@ -57,6 +58,7 @@ class VEBGalleryListView(photo_views.GalleryListView):
     paginate_by = 3
 
 
+@login_required
 def intern_galerie(request):
     data = {
             'galleries': photo_models.Gallery.objects.all(),
@@ -65,6 +67,7 @@ def intern_galerie(request):
     return render(request, 'intern/galerie.html', data)
 
 
+@login_required
 def intern_galerie_edit(request, id):
     gallery = photo_models.Gallery.objects.get(pk=id) if id else None
 
@@ -83,12 +86,14 @@ def intern_galerie_edit(request, id):
                   {'gallery': form, 'id': id})
 
 
+@login_required
 def intern_galerie_del(request, id):
     gallery = get_object_or_404(photo_models.Gallery, pk=id)
     gallery.delete()
     return HttpResponseRedirect(reverse('club_veb.views.intern_galerie'))
 
 
+@login_required
 def intern_galerie_photo_edit(request, id):
     photo = photo_models.Photo.objects.get(pk=id) if id else None
 
@@ -107,12 +112,14 @@ def intern_galerie_photo_edit(request, id):
                   {'gallery': form, 'id': id})
 
 
+@login_required
 def intern_galerie_photo_del(request, id):
     photo = get_object_or_404(photo_models.Photo, pk=id)
     photo.delete()
     return HttpResponseRedirect(reverse('club_veb.views.intern_galerie'))
 
 
+@login_required
 def intern_galerie_photo_zip_upload(request):
     if request.method == 'POST':
         form = VEBUploadZipForm(request.POST, request.FILES)
@@ -128,14 +135,12 @@ def intern_galerie_photo_zip_upload(request):
     return render(request, 'intern/galerie_edit.html', {'gallery': form})
 
 
-def intern_uebersicht(request):
-    return render(request, 'intern/uebersicht.html')
-
-
+@login_required
 def intern_booking(request, year):
     return booking_table(request, year, 'intern/booking.html')
 
 
+@login_required
 def booking_table(request, year, template):
     current_year = datetime.now().year
     if not year:
@@ -180,6 +185,7 @@ def booking_table(request, year, template):
                   })
 
 
+@login_required
 def intern_booking_edit(request, id):
     # parse id or date
     try:
@@ -212,14 +218,17 @@ def intern_booking_edit(request, id):
                   {'booking': form, 'id': id})
 
 
+@login_required
 def intern_schichtplan(request, year):
     return booking_table(request, year, 'intern/schichtplan.html')
 
 
+@login_required
 def intern_todo(request):
     return render(request, 'intern/todo.html')
 
 
+@login_required
 def intern_clubtreffen(request, year):
     current_year = datetime.now().year
     if not year:
@@ -244,6 +253,7 @@ def intern_clubtreffen(request, year):
                   })
 
 
+@login_required
 def intern_clubtreffen_edit(request, id):
     meeting = ClubMeeting.objects.get(pk=id) if id else None
 
@@ -283,20 +293,24 @@ def intern_clubtreffen_edit(request, id):
                   {'clubMeeting': form, 'id': id})
 
 
+@login_required
 def intern_clubtreffen_del(request, id):
     meeting = get_object_or_404(ClubMeeting, pk=id)
     meeting.delete()
     return HttpResponseRedirect(reverse('club_veb.views.intern_clubtreffen'))
 
 
+@login_required
 def intern_benutzer(request):
     return render(request, 'intern/benutzer.html')
 
 
+@login_required
 def intern_mail(request):
     return render(request, 'intern/mail.html')
 
 
+@login_required
 def intern_kollektiv(request):
     users = [user.first_name or user.username for user in User.objects.all()]
     return render(request, 'intern/kollektiv.html', {'users': users})

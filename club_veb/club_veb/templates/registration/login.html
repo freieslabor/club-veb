@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load addcss %}
+
+{% block content %}
+<br />
+
+{% if form.errors %}
+<div class="alert alert-danger">
+	Benutzername und Passwort passen nicht zusammen. Bitte versuche es nochmal.
+</div>
+{% endif %}
+
+{% if next %}
+	<div class="alert alert-warning">
+    {% if user.is_authenticated %}
+    <p>Dein Benutzerkonto hat keinen Zugriff auf diese Seite.</p>
+    {% else %}
+    <p>Bitte logge Dich ein, um fortzufahren.</p>
+    {% endif %}
+	</div>
+{% endif %}
+
+<div style="width: 30em; margin: auto; border: 1px solid grey; margin-top: 2em; padding-top: 1.5em;">
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+<table class="table">
+<tr>
+    <th><label class="control-label">{{ form.username.label_tag }}</label></th>
+	<td>{{ form.username|addcss:"form-control" }}</td>
+</tr>
+<tr>
+	<th><label class="control-label">{{ form.password.label_tag }}</label></th>
+	<td>{{ form.password|addcss:"form-control" }}</td>
+</tr>
+<tr>
+	<th></th>
+    <td>
+		<input type="submit" value="Login" class="btn btn-default btn-primary btn-link-active" />
+		<a href="{% url 'password_reset' %}">Passwort vergessen?</a>
+	</td>
+</tr>
+</table>
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+</div>
+
+{% endblock %}

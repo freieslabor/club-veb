@@ -134,6 +134,9 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'Club VEB',
 }
 
+LOGIN_URL = '/intern/login/'
+LOGIN_REDIRECT_URL = '/intern/'
+
 EMAIL_HOST = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

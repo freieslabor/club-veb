@@ -2,8 +2,6 @@ TODOs
 =====
 * Intern: login etc.
 * Intern: Mail: Mailinglistenwebinterface verlinken?
-* Benutzer: /admin aufraeumen und zum Superuser-Bereich machen
-	* Benutzerrollen einfuehren
 * Booking: mehrere Bilder hochladen koennen
 * Booking: loeschbar?
 * Galerie: Hochladen (zip, einzeln) erklaeren

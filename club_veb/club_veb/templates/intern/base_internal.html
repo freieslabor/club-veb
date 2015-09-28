@@ -22,10 +22,12 @@
       <span class="glyphicon glyphicon-chevron-right"></span>
       GALERIE
     </a>
-	<a class="link1" href="{% url 'intern_benutzer' %}">
+	{% if request.user.is_staff %}
+	<a class="link1" href="{% url 'admin:index' %}">
       <span class="glyphicon glyphicon-chevron-right"></span>
-      BENUTZER
+      ADMIN
     </a>
+	{% endif %}
 	<a class="link1" href="{% url 'intern_mail' %}">
       <span class="glyphicon glyphicon-chevron-right"></span>
       MAIL

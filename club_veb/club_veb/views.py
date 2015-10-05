@@ -321,5 +321,11 @@ def intern_mail(request):
 
 @login_required
 def intern_kollektiv(request):
-    users = [user.first_name or user.username for user in User.objects.all()]
-    return render(request, 'intern/kollektiv.html', {'users': users})
+    user_info = []
+    for user in User.objects.all():
+        info = user.first_name or user.username
+        if user.email:
+            info += ' (%s)' % user.email
+        user_info.append(info)
+
+    return render(request, 'intern/kollektiv.html', {'users': user_info})

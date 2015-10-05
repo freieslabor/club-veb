@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from datetimewidget.widgets import DateWidget, DateTimeWidget
 
 from club_veb.models import Booking, Contact, ClubMeeting
@@ -112,3 +113,11 @@ class VEBUploadZipForm(UploadZipForm):
                                   widget=forms.HiddenInput())
     is_public = forms.CharField(required=False, initial=True,
                                 widget=forms.HiddenInput())
+
+
+class UserInfoForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')

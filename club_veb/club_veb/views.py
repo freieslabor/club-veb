@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .forms import BookingForm, ContactForm, ClubMeetingForm, \
-    VEBUploadZipForm
+    VEBUploadZipForm, UserInfoForm
 from .models import Booking, ClubMeeting, VEBGalleryAdminForm, \
     VEBPhotoAdminForm
 
@@ -335,3 +335,19 @@ def intern_kollektiv(request):
         user_info.append(info)
 
     return render(request, 'intern/kollektiv.html', {'users': user_info})
+
+
+@login_required
+def intern_edit_profile(request):
+    if request.method == 'POST':
+        form = UserInfoForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect(
+                reverse('club_veb.views.intern_edit_profile'))
+
+    else:
+        form = UserInfoForm(instance=request.user)
+
+    return render(request, 'intern/profile_edit.html', {'profile': form})

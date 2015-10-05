@@ -1,0 +1,31 @@
+{% extends "intern/base_internal.html" %}
+
+{% block content %}
+  <div id="inhalt-inner">
+    <h3>Profil editieren</h3>
+	<form enctype="multipart/form-data" method="post" action="{{ request.path }}">
+      {% csrf_token %}
+
+      <table class="table">
+      {% for field in profile.visible_fields %}
+        <tr class="{% if field.errors %}danger{% endif %}">
+          <th>
+            <label class="control-label">{{ field.label }}</label>
+          </th>
+          <td>
+            {{ field }}
+
+            {% if field.errors %}<span>{{ field.errors.as_text }}</span>{% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </table>
+
+      {% for field in profile.hidden_fields %}
+        {{ field }}
+      {% endfor %}
+
+      <input type="submit" value="Speichern" class="btn btn-default" />
+    </form>
+  </div>
+{% endblock %}

@@ -90,4 +90,7 @@ urlpatterns = [
 
     url(r'^$', 'club_veb.views.zentrale', name='zentrale'),
 
+    url(r'^intern/profil/$', 'club_veb.views.intern_edit_profile',
+        name='intern_edit_profile')
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # devel only

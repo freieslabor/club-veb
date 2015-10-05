@@ -4,14 +4,13 @@
   <div id="inhalt-inner">
     <h3>Schichtplan {{ year }}</h3>
 
+	Der Schichtplan ist lediglich eine andere Sicht auf die Bookings. Um Bookings anzulegen und zu löschen, wähle "Booking" im Menü.
+	<br />
+
     <div class="btn-group booking-btn" role="group">
       {% for y in year_range %}
         <a href="{% url 'intern_booking' %}{{ y }}" class="btn {% if y|add:0 == year|add:0 %}btn-primary btn-link-active{% else %}btn-default{% endif %}">{{ y }}</a>
       {% endfor %}
-    </div>
-
-    <div class="booking-btn">
-      <a href="{% url 'intern_booking_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neues Booking</a>
     </div>
 
     <table class="table">

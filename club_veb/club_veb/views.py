@@ -227,6 +227,12 @@ def intern_booking_edit(request, id):
                   {'booking': form, 'id': id})
 
 
+def intern_booking_del(request, id):
+    booking = get_object_or_404(Booking, pk=id)
+    booking.delete()
+    return HttpResponseRedirect(reverse('club_veb.views.intern_booking'))
+
+
 @login_required
 def intern_schichtplan(request, year):
     return booking_table(request, year, 'intern/schichtplan.html')

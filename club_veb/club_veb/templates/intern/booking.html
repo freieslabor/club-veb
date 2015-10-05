@@ -11,7 +11,7 @@
     </div>
 
     <div class="booking-btn">
-      <a href="{% url 'intern_booking_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neues Booking</a>
+      <a href="{% url 'intern_booking_edit' %}"><span class="glyphicon glyphicon-plus"></span> Neues Booking mit individuellem Datum</a>
     </div>
 
     <table class="table">
@@ -21,6 +21,7 @@
         <th>Name</th>
         <th>Verantwortlich</th>
         <th>Status</th>
+        <th></th>
         <th></th>
       </tr>
       {% if not bookings %}
@@ -35,7 +36,8 @@
           <td>{{ booking.name }}</td>
           <td>{{ booking.responsible|default:'' }}</td>
           <td>{{ booking.state }}</td>
-          <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>
+		  <td>{% if booking.state != 'frei' %}<a href="{% url 'intern_booking_del' %}{{ booking.id|default:'' }}" title="löschen"><span class="glyphicon glyphicon-remove"></span></a>{% endif %}</td>
         </tr>
       {% endfor %}
     </table>

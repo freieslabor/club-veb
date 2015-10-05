@@ -60,6 +60,8 @@ urlpatterns = [
 
     url(r'^intern/booking/edit/(?P<id>\S+)?$',
         'club_veb.views.intern_booking_edit', name='intern_booking_edit'),
+    url(r'^intern/booking/del/(?P<id>\S+)?$',
+        'club_veb.views.intern_booking_del', name='intern_booking_del'),
     url(r'^intern/booking/(?P<year>\S+)?$', 'club_veb.views.intern_booking',
         name='intern_booking'),
 

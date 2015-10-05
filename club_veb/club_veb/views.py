@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -26,8 +27,17 @@ def zentrale(request):
 
 
 def programm(request):
-    bookings = Booking.objects.filter(date__gte=date.today()).order_by('date')
-    return render(request, 'programm.html', {'bookings': bookings[:5]})
+    all_bookings = Booking.objects.filter(date__gte=date.today()) \
+        .order_by('date')
+    page = request.GET.get('page')
+    paginator = Paginator(all_bookings, 2)
+    try:
+        bookings = paginator.page(page)
+    except PageNotAnInteger:
+        bookings = paginator.page(1)
+    except EmptyPage:
+        bookings = paginator.page(paginator.num_pages)
+    return render(request, 'programm.html', {'bookings': bookings})
 
 
 def kontakt(request):
@@ -49,7 +59,6 @@ def kontakt(request):
             messages.error(request, 'Formular unvollständig.')
     else:
         form = ContactForm()
-        print(form)
 
     return render(request, 'kontakt.html', {'contact': form})
 

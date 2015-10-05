@@ -30,5 +30,20 @@
     </div>
   {% endfor %}
   {% block postfix %}{% endblock %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if bookings.has_previous %}
+      <a href="?page={{ bookings.previous_page_number }}">&laquo;</a>
+      {% endif %}
+
+      <span class="current">
+        Seite {{ bookings.number }} von {{ bookings.paginator.num_pages }}
+      </span>
+
+      {% if bookings.has_next %}
+        <a href="?page={{ bookings.next_page_number }}">&raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 </div>
 {% endblock %}

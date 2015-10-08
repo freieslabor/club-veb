@@ -26,8 +26,8 @@
           <tr>
             <td>{{ gallery.title }}</td>
             <td>{{ gallery.photo_count }}</td>
-            <td><a href="{% url 'intern_galerie_edit' %}{{ gallery.id }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-            <td><a href="{% url 'intern_galerie_del' %}{{ gallery.id }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a href="{% url 'intern_galerie_edit' %}{{ gallery.id }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{% url 'intern_galerie_del' %}{{ gallery.id }}" title="löschen"><span class="glyphicon glyphicon-remove"></span></a></td>
           </tr>
         {% endfor %}
       </table>
@@ -55,8 +55,8 @@
         {% for photo in photos %}
           <tr>
             <td>{{ photo.title }}</td>
-            <td><a href="{% url 'intern_galerie_photo_edit' %}{{ photo.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-            <td><a href="{% url 'intern_galerie_photo_del' %}{{ photo.id|default:'' }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a href="{% url 'intern_galerie_photo_edit' %}{{ photo.id|default:'' }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{% url 'intern_galerie_photo_del' %}{{ photo.id|default:'' }}" title="löschen"><span class="glyphicon glyphicon-remove"></span></a></td>
           </tr>
         {% endfor %}
       </table>

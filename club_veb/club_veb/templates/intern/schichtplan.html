@@ -29,7 +29,7 @@
           <td>{{ booking.late_shift }}</td>
           <td>{{ booking.band_care }}</td>
           <td>{{ booking.state }}</td>
-          <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+          <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>
         </tr>
       {% endfor %}
     </table>

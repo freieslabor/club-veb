@@ -6,6 +6,8 @@ from .fields import STATE, SUBJECTS
 from photologue.admin import GalleryAdminForm, PhotoAdminForm
 from photologue.models import Gallery, Photo
 
+import datetime
+
 
 class Booking(models.Model):
     date = models.DateField(verbose_name='Termin')
@@ -63,8 +65,13 @@ class Booking(models.Model):
             'state': STATE[self.state],
             'early_shift': early_users,
             'late_shift': late_users,
-            'band_care': band_users
+            'band_care': band_users,
+            'in_past': self.in_past
         }
+
+    @property
+    def in_past(self):
+        return self.date < datetime.date.today()
 
     class Meta:
         app_label = 'club_veb'

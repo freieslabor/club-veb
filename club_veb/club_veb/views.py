@@ -16,7 +16,7 @@ from .models import Booking, ClubMeeting, VEBGalleryAdminForm, \
 from photologue import models as photo_models
 from photologue import views as photo_views
 
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from dateutil.parser import parse
 import textwrap
 
@@ -151,7 +151,7 @@ def intern_booking(request, year):
 
 @login_required
 def booking_table(request, year, template):
-    current_year = datetime.now().year
+    current_year = date.today().year
     if not year:
         year = current_year
     else:
@@ -176,6 +176,7 @@ def booking_table(request, year, template):
                 'name': '',
                 'responsible': '',
                 'state': 'frei',
+                'in_past': start < date.today()
             }
             bookings.append(dummy)
         start += timedelta(days=1)
@@ -185,12 +186,17 @@ def booking_table(request, year, template):
         first_year = current_year
     else:
         first_year = Booking.objects.order_by('date').first().date.year
-    year_range = range(first_year, current_year+2)
+    year_range = range(first_year-1, current_year+2)
+
+    hidden = sum(booking['in_past'] == True for booking in bookings)
+    show_full_year = request.GET.get('full') or year != current_year
 
     return render(request, template, {
                   'bookings': bookings,
                   'year': year,
                   'year_range': year_range,
+                  'hidden': hidden,
+                  'show_full_year': show_full_year
                   })
 
 
@@ -245,7 +251,7 @@ def intern_todo(request):
 
 @login_required
 def intern_clubtreffen(request, year):
-    current_year = datetime.now().year
+    current_year = date.today().year
     if not year:
         year = current_year
     else:

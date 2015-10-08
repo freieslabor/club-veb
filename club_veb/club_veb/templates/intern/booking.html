@@ -24,12 +24,16 @@
         <th></th>
         <th></th>
       </tr>
-      {% if not bookings %}
-        <tr class="empty-error">
-          <td colspan="6">Keine Bookings vorhanden.</td>
+      {% if not show_full_year and hidden > 0 %}
+        <tr>
+          <td colspan="7" style="text-align: center; text-decoration: underline;">
+            <a href="{% url 'intern_booking' %}?full=1" style="color: #337ab7;">vergangene Termine zeigen</a>
+          </td>
         </tr>
       {% endif %}
+
       {% for booking in bookings %}
+      {% if show_full_year or not booking.in_past %}
         <tr class="{{ booking.state }}">
           <td>{{ booking.date }}</td>
           <td>{{ booking.type }}</td>
@@ -39,6 +43,7 @@
           <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>
 		  <td>{% if booking.state != 'frei' %}<a href="{% url 'intern_booking_del' %}{{ booking.id|default:'' }}" title="löschen"><span class="glyphicon glyphicon-remove"></span></a>{% endif %}</td>
         </tr>
+      {% endif %}
       {% endfor %}
     </table>
   </div>

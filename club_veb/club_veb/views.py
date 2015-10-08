@@ -321,16 +321,6 @@ def intern_clubtreffen_del(request, id):
 
 
 @login_required
-def intern_benutzer(request):
-    return render(request, 'intern/benutzer.html')
-
-
-@login_required
-def intern_mail(request):
-    return render(request, 'intern/mail.html')
-
-
-@login_required
 def intern_kollektiv(request):
     user_info = []
     for user in User.objects.all():

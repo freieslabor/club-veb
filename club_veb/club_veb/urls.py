@@ -83,8 +83,6 @@ urlpatterns = [
 
     url(r'^intern/admin/', include(admin.site.urls)),
 
-    url(r'^intern/mail/$', 'club_veb.views.intern_mail', name='intern_mail'),
-
     url(r'^intern/kollektiv/$', 'club_veb.views.intern_kollektiv',
         name='intern_kollektiv'),
 

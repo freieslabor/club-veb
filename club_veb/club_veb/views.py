@@ -9,9 +9,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from .forms import BookingForm, ContactForm, ClubMeetingForm, \
-    VEBUploadZipForm, UserInfoForm
-from .models import Booking, ClubMeeting, VEBGalleryAdminForm, \
-    VEBPhotoAdminForm
+    VEBUploadZipForm, UserInfoForm, VEBGalleryAdminForm, VEBPhotoAdminForm
+from .models import Booking, ClubMeeting
 
 from photologue import models as photo_models
 from photologue import views as photo_views

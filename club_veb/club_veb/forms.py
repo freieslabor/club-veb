@@ -6,6 +6,9 @@ from club_veb.models import Booking, Contact, ClubMeeting
 from django.contrib.auth.models import User
 
 from photologue.forms import UploadZipForm
+from photologue.admin import GalleryAdminForm, PhotoAdminForm
+from photologue.models import Gallery, Photo
+
 from captcha.fields import CaptchaField
 
 
@@ -120,4 +123,27 @@ class UserInfoForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1',
+                  'password2')
+
+
+class VEBGalleryAdminForm(GalleryAdminForm):
+    class Meta:
+        model = Gallery
+        exclude = ['sites', 'is_public', 'slug']
+
+        options = {
+            'format': 'mm/dd/yyyy hh:ii',
+            'autoclose': True,
+            }
+        widgets = {
+            'date_added': DateTimeWidget(attrs={'id': 'datetime_galerie'},
+                                         bootstrap_version=3, options=options),
+        }
+
+
+class VEBPhotoAdminForm(PhotoAdminForm):
+    class Meta:
+        model = Photo
+        exclude = ['slug', 'caption', 'date_added', 'is_public', 'sites',
+                   'crop_from', 'effect']

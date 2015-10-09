@@ -30,6 +30,7 @@
     </div>
   {% endfor %}
   {% block postfix %}{% endblock %}
+  {% if bookings|length > 1 %}
   <div class="pagination">
     <span class="step-links">
       {% if bookings.has_previous %}
@@ -45,5 +46,6 @@
       {% endif %}
     </span>
   </div>
+  {% endif %}
 </div>
 {% endblock %}

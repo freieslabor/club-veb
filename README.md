@@ -18,7 +18,11 @@ apt-get install libfreetype6-dev libjpeg-dev zlib1g-dev libpng12-dev libxft-dev 
 
     $ deactivate
 
-## FAQ
+## FAQ & issues
+
+### Which Python version is needed?
+
+Python >= 3.
 
 ### I get "The _imaging C module is not installed"!
 
@@ -26,6 +30,9 @@ Install the latest Pillow version (you installed the above packages, right?):
 
     $ pip install git+git://github.com/python-imaging/Pillow.git --upgrade
 
-### Which Python version is needed?
+### Photologue throws SyntaxErrors!
 
-Python >= 3.
+Yes, photologue uses explicit unicode literals. If you are using Python
+3.0/3.1/3.2 you have to patch photologue (10 occurrences, search for "u'").
+Python 3.3 reintroduced explicit unicode literals, see
+[PEP 414](https://www.python.org/dev/peps/pep-0414/).

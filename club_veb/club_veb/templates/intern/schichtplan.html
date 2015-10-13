@@ -22,7 +22,17 @@
         <th>Status</th>
         <th></th>
       </tr>
+
+      {% if not show_full_year and hidden > 0 %}
+        <tr>
+          <td colspan="7" style="text-align: center; text-decoration: underline;">
+            <a href="{% url 'intern_schichtplan' %}?full=1" style="color: #337ab7;">vergangene Termine zeigen</a>
+          </td>
+        </tr>
+      {% endif %}
+
       {% for booking in bookings %}
+	  {% if show_full_year or not booking.in_past %}
         <tr class="{{ booking.state }}">
           <td>{{ booking.date|date:"d.m.Y" }}</td>
           <td>{{ booking.early_shift }}</td>
@@ -31,6 +41,7 @@
           <td>{{ booking.state }}</td>
           <td><a href="{% url 'intern_booking_edit' %}{{ booking.id|default:'' }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>
         </tr>
+      {% endif %}
       {% endfor %}
     </table>
   </div>

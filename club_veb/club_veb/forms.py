@@ -50,6 +50,11 @@ class BookingForm(forms.ModelForm):
                              widget=forms.FileInput,
                              error_messages={'invalid': ("Image files only")})
 
+    date = forms.DateField(input_formats=["%d.%m.%Y"], required=True,
+                           widget=DateWidget(usel10n=True,
+                           attrs={'id': 'datetime'},
+                           bootstrap_version=3))
+
     def __init__(self, *args, **kwargs):
         super(BookingForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -58,10 +63,7 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         exclude = []
-        options = {'format': 'mm/dd/yyyy'}
         widgets = {
-            'date': DateWidget(attrs={'id': 'datetime'},
-                               bootstrap_version=3, options=options),
             'headline': forms.Textarea(attrs={'rows': 3}),
             'description': forms.Textarea(attrs={'rows': 15}),
         }
@@ -87,6 +89,11 @@ class ClubMeetingForm(forms.ModelForm):
     host = UserFullnameChoiceField(queryset=User.objects.all(),
                                    label='Gastgeber')
 
+    date = forms.DateTimeField(input_formats=["%d.%m.%Y %H:%M:%S"], required=True,
+                               widget=DateTimeWidget(usel10n=True,
+                               attrs={'id': 'datetime_clubtreffen'},
+                               bootstrap_version=3))
+
     def __init__(self, *args, **kwargs):
         super(ClubMeetingForm, self).__init__(*args, **kwargs)
         # set host dropdown initially to current user
@@ -98,14 +105,6 @@ class ClubMeetingForm(forms.ModelForm):
     class Meta:
         model = ClubMeeting
         exclude = []
-        options = {
-            'format': 'mm/dd/yyyy hh:ii',
-            'autoclose': True,
-            }
-        widgets = {
-            'date': DateTimeWidget(attrs={'id': 'datetime_clubtreffen'},
-                                   bootstrap_version=3, options=options),
-        }
 
 
 class VEBUploadZipForm(UploadZipForm):

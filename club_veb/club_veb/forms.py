@@ -116,15 +116,6 @@ class VEBUploadZipForm(UploadZipForm):
                                 widget=forms.HiddenInput())
 
 
-class UserInfoForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1',
-                  'password2')
-
-
 class VEBGalleryAdminForm(GalleryAdminForm):
     class Meta:
         model = Gallery
@@ -145,3 +136,12 @@ class VEBPhotoAdminForm(PhotoAdminForm):
         model = Photo
         exclude = ['slug', 'caption', 'date_added', 'is_public', 'sites',
                    'crop_from', 'effect']
+
+
+class UserInfoForm(UserCreationForm):
+    email = forms.EmailField(required=False)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1',
+                  'password2')

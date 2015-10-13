@@ -1,5 +1,7 @@
 {% extends "intern/base_internal.html" %}
 
+{% load l10n %}
+
 {% block content %}
   <div id="inhalt-inner">
     <h3>Jahresplaner {{ year }}</h3>
@@ -35,7 +37,7 @@
       {% for booking in bookings %}
       {% if show_full_year or not booking.in_past %}
         <tr class="{{ booking.state }}">
-          <td>{{ booking.date }}</td>
+          <td>{{ booking.date|date:"d.m.Y" }}</td>
           <td>{{ booking.type }}</td>
           <td>{{ booking.name }}</td>
           <td>{{ booking.responsible|default:'' }}</td>

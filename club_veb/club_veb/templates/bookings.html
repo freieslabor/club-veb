@@ -21,7 +21,7 @@
             <img width="210" src="{% static "img/na.jpg" %}">
           {% endif %}
         </span>
-        <div id="NEWSIN">{{ booking.description }}</div> 
+        <div id="NEWSIN">{{ booking.description|linebreaksbr }}</div>
 		{% if booking.link %}
           <br /><i><a href="{{ booking.link }}">Mehr Infos im Web</a></i>
         {% endif %}

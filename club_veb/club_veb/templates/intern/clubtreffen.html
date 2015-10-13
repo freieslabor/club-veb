@@ -24,12 +24,12 @@
       </tr>
       {% if not meetings %}
         <tr class="empty-error">
-          <td colspan="6">Keine Clubtreffen vorhanden.</td>
+          <td colspan="5">Keine Clubtreffen vorhanden.</td>
         </tr>
       {% endif %}
       {% for meeting in meetings %}
         <tr class="{{ meeting.state }}">
-          <td>{{ meeting.date }}</td>
+          <td>{{ meeting.date|date:"d.m.Y H:i" }}</td>
           <td>{{ meeting.host }}</td>
           <td>{{ meeting.address }}</td>
           <td><a href="{% url 'intern_clubtreffen_edit' %}{{ meeting.id }}" title="editieren"><span class="glyphicon glyphicon-pencil"></span></a></td>

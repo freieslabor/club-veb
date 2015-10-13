@@ -27,9 +27,9 @@ def zentrale(request):
 
 def programm(request):
     all_bookings = Booking.objects.filter(date__gte=date.today()) \
-        .order_by('date')
+        .exclude(state__exact=3).order_by('date')
     page = request.GET.get('page')
-    paginator = Paginator(all_bookings, 2)
+    paginator = Paginator(all_bookings, 7)
     try:
         bookings = paginator.page(page)
     except PageNotAnInteger:
@@ -185,7 +185,7 @@ def booking_table(request, year, template):
         first_year = current_year
     else:
         first_year = Booking.objects.order_by('date').first().date.year
-    year_range = range(first_year-1, current_year+2)
+    year_range = range(first_year, current_year+2)
 
     hidden = sum(booking['in_past'] == True for booking in bookings)
     show_full_year = request.GET.get('full') or year != current_year

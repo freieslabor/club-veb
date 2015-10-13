@@ -9,7 +9,7 @@
 
     <div class="btn-group booking-btn" role="group">
       {% for y in year_range %}
-        <a href="{% url 'intern_booking' %}{{ y }}" class="btn {% if y|add:0 == year|add:0 %}btn-primary btn-link-active{% else %}btn-default{% endif %}">{{ y }}</a>
+        <a href="{% url 'intern_schichtplan' %}{{ y }}" class="btn {% if y|add:0 == year|add:0 %}btn-primary btn-link-active{% else %}btn-default{% endif %}">{{ y }}</a>
       {% endfor %}
     </div>
 
@@ -24,7 +24,7 @@
       </tr>
       {% for booking in bookings %}
         <tr class="{{ booking.state }}">
-          <td>{{ booking.date }}</td>
+          <td>{{ booking.date|date:"d.m.Y" }}</td>
           <td>{{ booking.early_shift }}</td>
           <td>{{ booking.late_shift }}</td>
           <td>{{ booking.band_care }}</td>

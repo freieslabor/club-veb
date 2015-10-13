@@ -10,7 +10,7 @@ import datetime
 class Booking(models.Model):
     date = models.DateField(verbose_name='Termin')
     name = models.CharField(max_length=200, verbose_name='Name')
-    description = models.CharField(max_length=1000, verbose_name='Pressetext')
+    description = models.CharField(max_length=4000, verbose_name='Pressetext')
     type = models.CharField(max_length=50, verbose_name='Art')
     link = models.CharField(max_length=70, verbose_name='Link', blank=True)
     image = models.ImageField(verbose_name='Bild', upload_to='event_image',

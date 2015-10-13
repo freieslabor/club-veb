@@ -10,7 +10,6 @@ import datetime
 class Booking(models.Model):
     date = models.DateField(verbose_name='Termin')
     name = models.CharField(max_length=200, verbose_name='Name')
-    headline = models.CharField(max_length=200, verbose_name='Überschrift')
     description = models.CharField(max_length=1000, verbose_name='Pressetext')
     type = models.CharField(max_length=50, verbose_name='Art')
     link = models.CharField(max_length=70, verbose_name='Link', blank=True)

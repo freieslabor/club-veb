@@ -64,7 +64,6 @@ class BookingForm(forms.ModelForm):
         model = Booking
         exclude = []
         widgets = {
-            'headline': forms.Textarea(attrs={'rows': 3}),
             'description': forms.Textarea(attrs={'rows': 15}),
         }
 
